@@ -72,8 +72,8 @@ class TableTest {
 		String date = "2018-1-1";
 		Select s = mTable.select().all().where(and(equal(mCol1, 24), not(lessThan(mCol3, date))));
 
-		String expected = String.format("SELECT * FROM %s %s WHERE (%s = 24 AND  NOT (%s < \"%s\"))", mTableName,
-				mTableAlias, mCol1.alias(), mCol3.alias(), date);
+		String expected = String.format("SELECT %s* FROM %s %s WHERE (%s = 24 AND  NOT (%s < \"%s\"))",
+				mTableAlias + ".", mTableName, mTableAlias, mCol1.alias(), mCol3.alias(), date);
 		String actual = s.build();
 
 		System.out.println(actual);
