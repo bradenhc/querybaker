@@ -2,6 +2,7 @@ package com.github.bradenhitchcock.querybaker.util;
 
 import java.sql.Date;
 
+import com.github.bradenhitchcock.querybaker.cond.Condition;
 import com.github.bradenhitchcock.querybaker.cond.Condition.Symbol;
 import com.github.bradenhitchcock.querybaker.sql.Column;
 
@@ -11,6 +12,8 @@ public class SQLFormatter {
 			return ((Column) o).name();
 		} else if (o instanceof Symbol) {
 			return ((Symbol) o).toString();
+		} else if (o instanceof Condition) {
+			return o.toString();
 		} else if (o instanceof String) {
 			// TODO: This one is a little more complicated. We need to clean the string
 			// before we append it so that

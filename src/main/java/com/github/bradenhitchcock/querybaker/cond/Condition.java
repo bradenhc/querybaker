@@ -12,9 +12,9 @@ public class Condition {
 
 	public static Condition and(Condition c1, Condition c2, Condition... additional) {
 		c1.prepend(Symbol.LP);
-		c1.append(Symbol.AND).append(c2.toString());
+		c1.append(Symbol.AND).append(c2);
 		for (Condition c : additional) {
-			c1.append(Symbol.AND).append(c.toString());
+			c1.append(Symbol.AND).append(c);
 		}
 		c1.append(Symbol.RP);
 		return c1;
@@ -22,16 +22,16 @@ public class Condition {
 
 	public static Condition or(Condition c1, Condition c2, Condition... additional) {
 		c1.prepend(Symbol.LP);
-		c1.append(Symbol.OR).append(c2.toString());
+		c1.append(Symbol.OR).append(c2);
 		for (Condition c : additional) {
-			c1.append(Symbol.OR).append(c.toString());
+			c1.append(Symbol.OR).append(c);
 		}
 		c1.append(Symbol.RP);
 		return c1;
 	}
 
 	public static Condition not(Condition c) {
-		c.prepend(Symbol.NOT).prepend(Symbol.LP);
+		c.prepend(Symbol.LP).prepend(Symbol.NOT);
 		c.append(Symbol.RP);
 		return c;
 	}
@@ -48,7 +48,7 @@ public class Condition {
 		return c;
 	}
 
-	public Condition lessThanOrEqual(Object left, Object right) {
+	public static Condition lessThanOrEqual(Object left, Object right) {
 		Condition c = new Condition();
 		c.append(left).append(Symbol.LTE).append(right);
 		return c;

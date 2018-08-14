@@ -37,6 +37,18 @@ public class Select implements IQueryBuilder {
 		}
 		return this;
 	}
+	
+	public Select where(Condition c) {
+		mCondition = c;
+		return this;
+	}
+	
+	public Select order(Column ...columns) {
+		for(Column c : columns) {
+			mOrder.add(c);
+		}
+		return this;
+	}
 
 	@Override
 	public String build() {
