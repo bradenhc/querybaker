@@ -3,6 +3,17 @@ Simple database query builder for CRUD operations written in Java. The purpose o
 
 Ultimately this builder will also include query validation based on a schema imported into the table. It will also support reading in table schema definitions from a configuration file, allowing a program to easily create, drop, and manipulate tables.
 
+## Maven
+```xml
+<dependency>
+	<groupId>com.github.bradenhitchcock.querybaker</groupId>
+	<artifactId>querybaker</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
+*Note: this installs the latest stable version. To install a different version, change the value of the `<version>` tag*
+
 ## Quickstart
 Below are some basic examples of queries that, when executed, result in simple CRUD operations on a database. Note that the query builder only provides the query to be able to manipulate the database. It does not actually manipulate the database itself.
 
@@ -41,7 +52,7 @@ q = t.truncate().build();
 ## Conditions
 Most database queries do not operate on ALL of the data inside of a table. They act on filtered views of the data based on some condition. QueryBaker provides a simple way to generate a conditional statement by using static methods from the `Condition` class.
 
-```
+```java
 import static com.github.bradenhitchcock.querybaker.cond.Condition.*
 
 // A very simple condition that just compares two values. Turning this condition into a string will result
