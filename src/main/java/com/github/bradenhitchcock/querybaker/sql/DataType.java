@@ -112,5 +112,6 @@ public enum DataType {
 	
 	// Other Data Types
 	
+	
 	public abstract String apachedb(int size);
 }

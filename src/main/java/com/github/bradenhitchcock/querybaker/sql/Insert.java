@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.bradenhitchcock.querybaker.api.IQueryBuilder;
+import com.github.bradenhitchcock.querybaker.util.SQLFormatter;
 
 public class Insert implements IQueryBuilder {
 	
@@ -19,12 +20,20 @@ public class Insert implements IQueryBuilder {
 		return new Insert(new Table(table));
 	}
 	
-	public Insert values(InsertPair ...pairs) {
-		for(InsertPair p : pairs) {
+	public static Insert into(Table table) {
+		return new Insert(table);
+	}
+	
+	public Insert values(Pair ...pairs) {
+		for(Pair p : pairs) {
 			mColumns.add(p.column);
 			mValues.add(p.value);
 		}
 		return this;
+	}
+	
+	public static Pair pair(Column c, Object v) {
+		return new Pair(c, v);
 	}
 
 	@Override
@@ -45,25 +54,16 @@ public class Insert implements IQueryBuilder {
 		sb.append("VALUES (");
 		first = true;
 		for(Object v : mValues) {
+			String s = SQLFormatter.format(v);
 			if(first) {
-				sb.append(v);
+				sb.append(s);
 				first = false;
 			} else {
-				sb.append(", ").append(v);
+				sb.append(", ").append(s);
 			}
 		}
 		sb.append(")");
 		return sb.toString();
-	}
-	
-	public class InsertPair {
-		public Column column;
-		public Object value;
-		
-		public InsertPair(Column c, Object v) {
-			column = c;
-			value = v;
-		}
 	}
 	
 }
