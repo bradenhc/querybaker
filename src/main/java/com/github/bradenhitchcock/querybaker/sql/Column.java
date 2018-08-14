@@ -20,6 +20,7 @@ public class Column {
 	public Column(String name, DataType dataType, int size) {
 		mName = name;
 		mDataType = dataType;
+		mDataTypeSize = size;
 	}
 
 	public void name(String name) {

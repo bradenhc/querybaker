@@ -26,6 +26,8 @@ public class Select implements IQueryBuilder {
 		return new Select(table);
 	}
 	
+	// TODO add a select from a select
+	
 	public Select all() {
 		mShouldSelectAll = true;
 		return this;
