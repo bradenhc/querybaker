@@ -2,10 +2,12 @@ package com.github.bradenhitchcock.querybaker.sql;
 
 public class Column {
 	private String mName;
+	private String mAlias;
 	private DataType mDataType;
 	private int mDataTypeSize = 1;
 	private boolean mIsNotNull = false;
 	private boolean mIsPrimaryKey = false;
+	private boolean mAutoIncrement = false;
 
 	public Column(String name, DataType dataType, int size, boolean isNotNull, boolean isPrimaryKey) {
 		this(name, dataType, size, isNotNull);
@@ -29,6 +31,14 @@ public class Column {
 
 	public String name() {
 		return mName;
+	}
+	
+	public void alias(String alias) {
+		mAlias = alias + "." + mName;
+	}
+	
+	public String alias() {
+		return mAlias;
 	}
 
 	public void dataType(DataType dataType, int size) {
@@ -59,6 +69,14 @@ public class Column {
 	public boolean isNotNull() {
 		return mIsNotNull;
 	}
+	
+	public void setAutoIncrement(boolean value) {
+		mAutoIncrement = value;
+	}
+	
+	public boolean autoIncrement() {
+		return mAutoIncrement;
+	}
 
 	@Override
 	public String toString() {
@@ -71,6 +89,14 @@ public class Column {
 		if (mIsPrimaryKey) {
 			sb.append(" PRIMARY KEY");
 		}
+		if(mAutoIncrement) {
+			sb.append(" ").append(getAutoincrementSyntaxFromMode());
+		}
 		return sb.toString();
+	}
+	
+	private String getAutoincrementSyntaxFromMode() {
+		// Apache DB
+		return "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)";
 	}
 }

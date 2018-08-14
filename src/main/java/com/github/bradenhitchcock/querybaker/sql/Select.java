@@ -60,16 +60,20 @@ public class Select implements IQueryBuilder {
 		} else {
 			boolean first = true;
 			for(Column c : mSelectColumns) {
+				String name = mTable.alias() != null ? c.alias() : c.name();
 				if(first) {
 					first = false;
-					sb.append(c.name());
+					sb.append(name);
 				} else {
-					sb.append(", ").append(c.name());
+					sb.append(", ").append(name);
 				}
 			}
 			sb.append(" ");
 		}
 		sb.append("FROM ").append(mTable.name());
+		if(mTable.alias() != null) {
+			sb.append(" ").append(mTable.alias());
+		}
 		// TODO: add support for select joins
 		if(mCondition != null) {
 			sb.append(" WHERE ").append(mCondition.toString());
@@ -78,11 +82,12 @@ public class Select implements IQueryBuilder {
 			sb.append(" ORDER BY ");
 			boolean first = true;
 			for(Column c: mOrder) {
+				String name = mTable.alias() != null ? c.alias() : c.name();
 				if(first) {
 					first = false;
-					sb.append(c.name());
+					sb.append(name);
 				} else {
-					sb.append(", ").append(c.name());
+					sb.append(", ").append(name);
 				}
 			}
 		}

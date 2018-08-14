@@ -9,7 +9,8 @@ import com.github.bradenhitchcock.querybaker.sql.Column;
 public class SQLFormatter {
 	public static String format(Object o) {
 		if (o instanceof Column) {
-			return ((Column) o).name();
+			Column c = (Column) o;
+			return c.alias() == null ? c.name() : c.alias();
 		} else if (o instanceof Symbol) {
 			return ((Symbol) o).toString();
 		} else if (o instanceof Condition) {

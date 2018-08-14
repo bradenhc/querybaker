@@ -8,6 +8,7 @@ import com.github.bradenhitchcock.querybaker.api.IQueryBuilder;
 public class Table implements IQueryBuilder {
 
 	private String mName;
+	private String mAlias;
 	private List<Column> mColumns = new ArrayList<>();
 
 	public Table(String name, List<Column> columns) {
@@ -25,6 +26,27 @@ public class Table implements IQueryBuilder {
 
 	public static Table create(String name, List<Column> columns) {
 		return new Table(name, columns);
+	}
+	
+	public Table alias(String alias) {
+		if(mAlias != null) {
+			// We are resetting/removing the alias. Remove the alias from all the column names
+			for(Column c : mColumns) {
+				c.alias(null);
+			}
+		}
+		if(alias != null) {
+			// We are setting the alias for the first time
+			for(Column c : mColumns) {
+				c.alias(alias);
+			}
+		}
+		mAlias = alias;
+		return this;
+	}
+	
+	public String alias() {
+		return mAlias;
 	}
 
 	public Select select() {
@@ -47,17 +69,15 @@ public class Table implements IQueryBuilder {
 		return this;
 	}
 
-	public Table column(Column c) {
-		mColumns.add(c);
-		return this;
-	}
-
 	public List<Column> columns() {
 		return mColumns;
 	}
 
 	public Table columns(Column... columns) {
 		for (Column c : columns) {
+			if(mAlias != null) {
+				c.alias(mAlias);
+			}
 			mColumns.add(c);
 		}
 		return this;
