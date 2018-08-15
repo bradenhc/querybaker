@@ -1,11 +1,11 @@
-package com.github.bradenhitchcock.querybaker.sql;
+package com.github.bradenhc.querybaker.sql;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.bradenhitchcock.querybaker.api.IQueryBuilder;
-import com.github.bradenhitchcock.querybaker.cond.Condition;
-import com.github.bradenhitchcock.querybaker.util.SQLFormatter;
+import com.github.bradenhc.querybaker.api.IQueryBuilder;
+import com.github.bradenhc.querybaker.cond.Condition;
+import com.github.bradenhc.querybaker.util.SQLFormatter;
 
 public class Update implements IQueryBuilder {
 

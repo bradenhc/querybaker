@@ -1,4 +1,4 @@
-package com.github.bradenhitchcock.querybaker.sql;
+package com.github.bradenhc.querybaker.sql;
 
 public enum DataType {
 	// Text-based Data Types

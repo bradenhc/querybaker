@@ -1,7 +1,7 @@
-package com.github.bradenhitchcock.querybaker.sql;
+package com.github.bradenhc.querybaker.sql;
 
-import com.github.bradenhitchcock.querybaker.api.IQueryBuilder;
-import com.github.bradenhitchcock.querybaker.cond.Condition;
+import com.github.bradenhc.querybaker.api.IQueryBuilder;
+import com.github.bradenhc.querybaker.cond.Condition;
 
 public class Delete implements IQueryBuilder {
 

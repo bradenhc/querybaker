@@ -1,8 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.bradenhitchcock.querybaker</groupId>
-  <artifactId>querybaker</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>QueryBaker</name>
-  <description>A simple Java library for building database query strings</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.bradenhc.querybaker</groupId>
+	<artifactId>querybaker</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>QueryBaker</name>
+	<description>A simple Java library for building database query strings</description>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/bradenhc/querybaker</url>
+	</scm>
+
+	<properties>
+		<maven.compiler.source>1.10</maven.compiler.source>
+		<maven.compiler.target>1.10</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- Some common dependencies for testing -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.3.0-M1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 </project>

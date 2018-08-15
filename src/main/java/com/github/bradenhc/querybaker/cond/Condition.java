@@ -1,6 +1,6 @@
-package com.github.bradenhitchcock.querybaker.cond;
+package com.github.bradenhc.querybaker.cond;
 
-import com.github.bradenhitchcock.querybaker.util.SQLFormatter;
+import com.github.bradenhc.querybaker.util.SQLFormatter;
 
 public class Condition {
 

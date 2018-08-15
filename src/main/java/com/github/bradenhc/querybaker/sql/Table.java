@@ -1,9 +1,9 @@
-package com.github.bradenhitchcock.querybaker.sql;
+package com.github.bradenhc.querybaker.sql;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.bradenhitchcock.querybaker.api.IQueryBuilder;
+import com.github.bradenhc.querybaker.api.IQueryBuilder;
 
 public class Table implements IQueryBuilder {
 

@@ -1,10 +1,10 @@
-package com.github.bradenhitchcock.querybaker.util;
+package com.github.bradenhc.querybaker.util;
 
 import java.sql.Date;
 
-import com.github.bradenhitchcock.querybaker.cond.Condition;
-import com.github.bradenhitchcock.querybaker.cond.Condition.Symbol;
-import com.github.bradenhitchcock.querybaker.sql.Column;
+import com.github.bradenhc.querybaker.cond.Condition;
+import com.github.bradenhc.querybaker.cond.Condition.Symbol;
+import com.github.bradenhc.querybaker.sql.Column;
 
 public class SQLFormatter {
 	public static String format(Object o) {

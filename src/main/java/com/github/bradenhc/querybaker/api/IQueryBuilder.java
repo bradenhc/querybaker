@@ -1,4 +1,4 @@
-package com.github.bradenhitchcock.querybaker.api;
+package com.github.bradenhc.querybaker.api;
 
 public interface IQueryBuilder {
 

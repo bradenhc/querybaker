@@ -1,13 +1,13 @@
-package com.github.bradenhitchcock.querybaker.cond;
+package com.github.bradenhc.querybaker.cond;
 
+import static com.github.bradenhc.querybaker.cond.Condition.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import static com.github.bradenhitchcock.querybaker.cond.Condition.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.bradenhitchcock.querybaker.sql.Column;
-import com.github.bradenhitchcock.querybaker.sql.DataType;
+import com.github.bradenhc.querybaker.cond.Condition;
+import com.github.bradenhc.querybaker.sql.Column;
+import com.github.bradenhc.querybaker.sql.DataType;
 
 class ConditionTest {
 
