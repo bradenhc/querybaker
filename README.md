@@ -6,9 +6,9 @@ Ultimately this builder will also include query validation based on a schema imp
 ## Maven
 ```xml
 <dependency>
-	<groupId>com.github.bradenhitchcock.querybaker</groupId>
-	<artifactId>querybaker</artifactId>
-	<version>1.0.0</version>
+    <groupId>com.github.bradenhitchcock.querybaker</groupId>
+    <artifactId>querybaker</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -21,7 +21,7 @@ Below are some basic examples of queries that, when executed, result in simple C
 // Tables and Columns are the backbone of the baker
 Column c1 = new Column("first_column", DataType.INTEGER, 1);
 Column c2 = new Column("second_column", DataType.VARCHAR, 255);
-Table t = Table.create("table_name").columns(c1, c2);
+Table t = Table.create("table_name").alias("tn").columns(c1, c2);
 
 // Create a query to create the table
 String q = t.build();
@@ -55,12 +55,23 @@ Most database queries do not operate on ALL of the data inside of a table. They 
 ```java
 import static com.github.bradenhitchcock.querybaker.cond.Condition.*
 
-// A very simple condition that just compares two values. Turning this condition into a string will result
-// in the following: col = value
+// A very simple condition that just compares two values. Turning this condition 
+// into a string will result in the following: col = value
 Condition c = equal(col, value);
 
-// Conditions can be as complex as you want them to be by nesting static calls within each other. 
-c = not(equal(col, value))
-c = and(not(equal(col, value)), equal(col, value))
-c = or(and(not(lessThan(col, value)), equal(col, value), or(greaterThanOrEqual(col, value), equal(col, value)))
+// Conditions can be as complex as you want them to be by nesting static calls 
+// within each other. 
+c = not(equal(col, value));
+c = and(not(equal(col, value)), equal(col, value));
+c = or(
+        and(
+            not(lessThan(col, value)), 
+            equal(col, value), 
+            or(
+                greaterThanOrEqual(col, value), 
+                equal(col, value)
+            )
+        ),
+        equal(col, value)
+    );
 ```
