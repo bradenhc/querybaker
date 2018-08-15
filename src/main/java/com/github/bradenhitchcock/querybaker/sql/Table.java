@@ -27,24 +27,25 @@ public class Table implements IQueryBuilder {
 	public static Table create(String name, List<Column> columns) {
 		return new Table(name, columns);
 	}
-	
+
 	public Table alias(String alias) {
-		if(mAlias != null) {
-			// We are resetting/removing the alias. Remove the alias from all the column names
-			for(Column c : mColumns) {
+		if (mAlias != null) {
+			// We are resetting/removing the alias. Remove the alias from all the column
+			// names
+			for (Column c : mColumns) {
 				c.alias(null);
 			}
 		}
-		if(alias != null) {
+		if (alias != null) {
 			// We are setting the alias for the first time
-			for(Column c : mColumns) {
+			for (Column c : mColumns) {
 				c.alias(alias);
 			}
 		}
 		mAlias = alias;
 		return this;
 	}
-	
+
 	public String alias() {
 		return mAlias;
 	}
@@ -65,8 +66,12 @@ public class Table implements IQueryBuilder {
 		return new Delete(this);
 	}
 
-	public Table drop() {
-		return this;
+	public String drop() {
+		return "DROP TABLE " + mName;
+	}
+
+	public String truncate() {
+		return "TRUNCATE TABLE " + mName;
 	}
 
 	public List<Column> columns() {
@@ -75,7 +80,7 @@ public class Table implements IQueryBuilder {
 
 	public Table columns(Column... columns) {
 		for (Column c : columns) {
-			if(mAlias != null) {
+			if (mAlias != null) {
 				c.alias(mAlias);
 			}
 			mColumns.add(c);
@@ -97,8 +102,8 @@ public class Table implements IQueryBuilder {
 		StringBuilder sb = new StringBuilder("CREATE TABLE ");
 		sb.append(mName).append(" (");
 		boolean first = true;
-		for(Column c : mColumns) {
-			if(first) {
+		for (Column c : mColumns) {
+			if (first) {
 				first = false;
 				sb.append(c.toString());
 			} else {

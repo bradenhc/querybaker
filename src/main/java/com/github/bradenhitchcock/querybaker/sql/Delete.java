@@ -15,13 +15,19 @@ public class Delete implements IQueryBuilder {
 	public static Delete from(String name) {
 		return new Delete(new Table(name));
 	}
+	
+	public Delete where(Condition c) {
+		mCondition = c;
+		return this;
+	}
 
 	@Override
 	public String build() {
 		StringBuilder sb = new StringBuilder("DELETE FROM ");
-		sb.append(mTable.name());
+		String name = mTable.alias() != null ? mTable.name() + " " + mTable.alias() : mTable.name();
+		sb.append(name);
 		if (mCondition != null) {
-			sb.append("WHERE ").append(mCondition.toString());
+			sb.append(" WHERE ").append(mCondition.toString());
 		}
 		return sb.toString();
 	}
