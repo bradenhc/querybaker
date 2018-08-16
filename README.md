@@ -53,7 +53,7 @@ q = t.truncate().build();
 Most database queries do not operate on ALL of the data inside of a table. They act on filtered views of the data based on some condition. QueryBaker provides a simple way to generate a conditional statement by using static methods from the `Condition` class.
 
 ```java
-import static com.github.bradenhitchcock.querybaker.cond.Condition.*
+import static io.github.bradenhc.querybaker.cond.Condition.*
 
 // A very simple condition that just compares two values. Turning this condition 
 // into a string will result in the following: col = value
