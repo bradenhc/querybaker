@@ -15,10 +15,13 @@
  */
 package io.github.bradenhc.querybaker.sql;
 
+/**
+ * Represents a {@link Column column}/value pair used in INSERT INTO and UPDATE statements.
+ */
 public class Pair {
 	public Column column;
 	public Object value;
-	
+
 	public Pair(Column c, Object v) {
 		column = c;
 		value = v;

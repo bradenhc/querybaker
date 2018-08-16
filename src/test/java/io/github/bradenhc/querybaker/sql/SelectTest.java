@@ -29,9 +29,9 @@ import io.github.bradenhc.querybaker.sql.Table;
 
 class SelectTest {
 
-	private Table mTable = new Table("test_table");
-	private Column mCol1 = new Column("column_1", DataType.INTEGER, 1);
-	private Column mCol2 = new Column("column_2", DataType.VARCHAR, 255);
+	private Table mTable;
+	private Column mCol1;
+	private Column mCol2;
 
 	@BeforeEach
 	void setup() {
@@ -80,7 +80,7 @@ class SelectTest {
 		Column c2 = new Column("column_b", DataType.INTEGER, 1, true);
 		table2.columns(c1, c2);
 		mTable.alias("tt");
-		
+
 		Condition jc = equal(mCol1, c1);
 
 		Select s = mTable.select().columns(mCol1, mCol2, c1).innerJoin(table2, jc).where(greaterThan(mCol1, 24));

@@ -15,9 +15,13 @@
  */
 package io.github.bradenhc.querybaker.sql;
 
+/**
+ * Represents valid database schema data types. The types currently based off SQL databases, with support for NoSQL
+ * databases in future releases.
+ */
 public enum DataType {
 	// Text-based Data Types
-	CHAR{
+	CHAR {
 		public String apachedb(int size) {
 			return " CHAR(" + size + ") ";
 		}
@@ -39,7 +43,7 @@ public enum DataType {
 	},
 	VARCHAR_FOR_BIT_DATA {
 		public String apachedb(int size) {
-			return " VARCHAR(" + size +") FOR BIT DATA ";
+			return " VARCHAR(" + size + ") FOR BIT DATA ";
 		}
 	},
 	LONG_VARCHAR_FOR_BIT_DATA {
@@ -62,7 +66,7 @@ public enum DataType {
 			return " XML ";
 		}
 	},
-	
+
 	// Number-based Data Types
 	BOOLEAN {
 		public String apachedb(int size) {
@@ -106,8 +110,7 @@ public enum DataType {
 			// TODO add precision
 		}
 	},
-	
-	
+
 	// Date-based Data Types
 	DATE {
 		public String apachedb(int size) {
@@ -124,9 +127,15 @@ public enum DataType {
 			return " TIMESTAMP ";
 		}
 	};
-	
+
 	// Other Data Types
-	
-	
+
+	/**
+	 * Formats the data type into a string representation based on the ApacheDB SQL database.
+	 * 
+	 * @param size
+	 *        the size of the data type in bytes
+	 * @return the string representation of the ApacheDB database type
+	 */
 	public abstract String apachedb(int size);
 }

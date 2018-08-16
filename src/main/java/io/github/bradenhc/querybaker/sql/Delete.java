@@ -18,24 +18,50 @@ package io.github.bradenhc.querybaker.sql;
 import io.github.bradenhc.querybaker.api.IQueryBuilder;
 import io.github.bradenhc.querybaker.cond.Condition;
 
+/**
+ * Represents a DELETE FROM statement for an SQL database query.
+ */
 public class Delete implements IQueryBuilder {
 
 	private Table mTable;
 	private Condition mCondition = null;
 
-	public Delete(Table table) {
+	/**
+	 * Creates a new instane of a DELETE FROM statement using the provided {@link Table}
+	 * 
+	 * @param table
+	 *        the Table instance to use to build the DELETE FROM statement
+	 */
+	private Delete(Table table) {
 		mTable = table;
 	}
 
-	public static Delete from(String name) {
-		return new Delete(new Table(name));
+	/**
+	 * Specifies the {@link Table} instance to use when building the query to delete entries from.
+	 * 
+	 * @param table
+	 *        the Table instance to use to build the query
+	 * @return a Delete query builder object implementation that can be used to generate a DELETE FROM SQL statement
+	 */
+	public static Delete from(Table table) {
+		return new Delete(table);
 	}
-	
+
+	/**
+	 * Adds a condition clause represented by a {@link Condition} object to the DELETE FROM statement.
+	 * 
+	 * @param c
+	 *        the condition to add to the statement
+	 * @return the modified DELETE FROM statement query builder object
+	 */
 	public Delete where(Condition c) {
 		mCondition = c;
 		return this;
 	}
 
+	/**
+	 * Creates the DELETE FROM statement. See {@link IQueryBuilder#build()} more information about this method.
+	 */
 	@Override
 	public String build() {
 		StringBuilder sb = new StringBuilder("DELETE FROM ");

@@ -20,29 +20,66 @@ import java.util.List;
 
 import io.github.bradenhc.querybaker.api.IQueryBuilder;
 
+/**
+ * Represents a table in a SQL database.
+ */
 public class Table implements IQueryBuilder {
 
 	private String mName;
 	private String mAlias;
 	private List<Column> mColumns = new ArrayList<>();
 
-	public Table(String name, List<Column> columns) {
+	/**
+	 * Constructor is private. See {@link Table#create(String, List)} instead.
+	 * 
+	 * @param name
+	 * @param columns
+	 */
+	private Table(String name, List<Column> columns) {
 		this(name);
 		mColumns = columns;
 	}
 
-	public Table(String name) {
+	/**
+	 * Constructor is private. See {@link Table#create(String)} instead.
+	 * 
+	 * @param name
+	 */
+	private Table(String name) {
 		mName = name;
 	}
 
+	/**
+	 * Creates a new Table instance with the provided name.
+	 * 
+	 * @param name
+	 *        the name of the table
+	 * @return a new Table instance with the provide name
+	 */
 	public static Table create(String name) {
 		return new Table(name);
 	}
 
+	/**
+	 * Creates a new table instance with the provided name and columns.
+	 * 
+	 * @param name
+	 *        the name of the table
+	 * @param columns
+	 *        a list of columns to add to the table
+	 * @return a new Table instance with the provided name and columns
+	 */
 	public static Table create(String name, List<Column> columns) {
 		return new Table(name, columns);
 	}
 
+	/**
+	 * Assigns the provided alias to the table.
+	 * 
+	 * @param alias
+	 *        the alias to assign to the table
+	 * @return the modified Table object
+	 */
 	public Table alias(String alias) {
 		if (mAlias != null) {
 			// We are resetting/removing the alias. Remove the alias from all the column
@@ -65,26 +102,56 @@ public class Table implements IQueryBuilder {
 		return mAlias;
 	}
 
+	/**
+	 * Creates a new {@link Select} query builder instance that will generate a SELECT statement for this table.
+	 * 
+	 * @return a new Select query builder object
+	 */
 	public Select select() {
-		return new Select(this);
+		return Select.from(this);
 	}
 
+	/**
+	 * Creates a new {@link Insert} query builder instance that will generate a INSERT INTO statement for this table.
+	 * 
+	 * @return a new Insert query builder object
+	 */
 	public Insert insert() {
-		return new Insert(this);
+		return Insert.into(this);
 	}
 
+	/**
+	 * Creates a new {@link Update} query builder instance that will generate a UPDATE statement for this table.
+	 * 
+	 * @return a new Update query builder object
+	 */
 	public Update update() {
-		return new Update(this);
+		return Update.table(this);
 	}
 
+	/**
+	 * Creates a new {@link Delete} query builder instance that will generate a DELETE FROM statement for this table.
+	 * 
+	 * @return a new Delete query builder object
+	 */
 	public Delete delete() {
-		return new Delete(this);
+		return Delete.from(this);
 	}
 
+	/**
+	 * Generates the string query that can be used to drop this table, as in a DROP TABLE statement.
+	 * 
+	 * @return a DROP TABLE string for this table
+	 */
 	public String drop() {
 		return "DROP TABLE " + mName;
 	}
 
+	/**
+	 * Generates the string query that can be used to truncate this table, as in a TRUNCATE TABLE statement.
+	 * 
+	 * @return a TRUNCATE TABLE string for this table
+	 */
 	public String truncate() {
 		return "TRUNCATE TABLE " + mName;
 	}
@@ -93,6 +160,13 @@ public class Table implements IQueryBuilder {
 		return mColumns;
 	}
 
+	/**
+	 * Adds the paremterized list of columns to the table
+	 * 
+	 * @param columns
+	 *        a parameterized list of columns to add to the table
+	 * @return the modified Table instance
+	 */
 	public Table columns(Column... columns) {
 		for (Column c : columns) {
 			if (mAlias != null) {
@@ -103,6 +177,13 @@ public class Table implements IQueryBuilder {
 		return this;
 	}
 
+	/**
+	 * Sets the name of the table
+	 * 
+	 * @param name
+	 *        the String representing the name of the table
+	 * @return the modified Table instance
+	 */
 	public Table name(String name) {
 		mName = name;
 		return this;

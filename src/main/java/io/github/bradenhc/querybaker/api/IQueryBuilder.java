@@ -15,8 +15,18 @@
  */
 package io.github.bradenhc.querybaker.api;
 
+/**
+ * Bread and butter interface for the QueryBaker project. All query builders implement this interface. The interface
+ * defines common functionality among all query builders so that they can correctly return a database query string.
+ */
 public interface IQueryBuilder {
 
+	/**
+	 * Generates a query string to be used in a database transaction.
+	 * 
+	 * @return a string representing a database query built based on the property settings of the class that implements
+	 *         this method
+	 */
 	public String build();
-	
+
 }

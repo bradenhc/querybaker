@@ -15,6 +15,11 @@
  */
 package io.github.bradenhc.querybaker.sql;
 
+/**
+ * Represents a column in an SQL relational database. Columns have names, types, sizes, and potential alias that help
+ * identify them. They also have several properties they can be configured with (such as PRIMARY KEY, AUTO INCREMENT,
+ * and so on).
+ */
 public class Column {
 	private String mName;
 	private String mAlias;
@@ -24,16 +29,53 @@ public class Column {
 	private boolean mIsPrimaryKey = false;
 	private boolean mAutoIncrement = false;
 
+	/**
+	 * Creates a new Column instance that has the NOT NULL and PRIMARY KEY properties set according to the final two
+	 * boolean values provided (respectively).
+	 * 
+	 * @param name
+	 *        the name of the column (un-aliased)
+	 * @param dataType
+	 *        the data type of the column
+	 * @param size
+	 *        the size in bytes of the column
+	 * @param isNotNull
+	 *        boolean value determining if the column should not allow NULL values
+	 * @param isPrimaryKey
+	 *        boolean value determining if the column should be the primary key
+	 */
 	public Column(String name, DataType dataType, int size, boolean isNotNull, boolean isPrimaryKey) {
 		this(name, dataType, size, isNotNull);
 		mIsPrimaryKey = isPrimaryKey;
 	}
 
+	/**
+	 * Creates a new Column instance that has the NOT NULL property set according to the final boolean value.
+	 * 
+	 * @param name
+	 *        the name of the column (un-aliased)
+	 * @param dataType
+	 *        the data type of the column
+	 * @param size
+	 *        the size in bytes of the column
+	 * @param isNotNull
+	 *        boolean value determining if the column should not allow NULL values
+	 */
 	public Column(String name, DataType dataType, int size, boolean isNotNull) {
 		this(name, dataType, size);
 		mIsNotNull = isNotNull;
 	}
 
+	/**
+	 * Creates a new Column instance with the given name, data type, and size in bytes.
+	 * 
+	 * @param name
+	 *        the name of the column (un-aliased)
+	 * @param dataType
+	 *        the data type of the column
+	 * @param size
+	 *        the size in bytes of the column
+	 */
 	public Column(String name, DataType dataType, int size) {
 		mName = name;
 		mDataType = dataType;
@@ -47,11 +89,11 @@ public class Column {
 	public String name() {
 		return mName;
 	}
-	
+
 	public void alias(String alias) {
 		mAlias = alias + "." + mName;
 	}
-	
+
 	public String alias() {
 		return mAlias;
 	}
@@ -84,11 +126,11 @@ public class Column {
 	public boolean isNotNull() {
 		return mIsNotNull;
 	}
-	
+
 	public void setAutoIncrement(boolean value) {
 		mAutoIncrement = value;
 	}
-	
+
 	public boolean autoIncrement() {
 		return mAutoIncrement;
 	}
@@ -104,12 +146,20 @@ public class Column {
 		if (mIsPrimaryKey) {
 			sb.append(" PRIMARY KEY");
 		}
-		if(mAutoIncrement) {
+		if (mAutoIncrement) {
 			sb.append(" ").append(getAutoincrementSyntaxFromMode());
 		}
 		return sb.toString();
 	}
-	
+
+	/**
+	 * Determines the correct syntax for auto incrementing the column. The syntax for specify a column as AUTO INCREMENT
+	 * varies depending on the type of SQL database being used. This method will look at the querybuilder's
+	 * configuration to determine which syntax is correct.
+	 * 
+	 * @return a string representing the auto increment property classifier for the database type being used by the
+	 *         query builder
+	 */
 	private String getAutoincrementSyntaxFromMode() {
 		// Apache DB
 		return "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)";

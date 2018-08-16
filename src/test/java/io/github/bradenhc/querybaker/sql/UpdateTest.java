@@ -28,7 +28,7 @@ import io.github.bradenhc.querybaker.sql.Update;
 
 class UpdateTest {
 
-	private Table table = new Table("test_table");
+	private Table table = Table.create("test_table");
 	private Column c1 = new Column("column_1", DataType.INTEGER, 1);
 	private Column c2 = new Column("column_2", DataType.VARCHAR, 255);
 

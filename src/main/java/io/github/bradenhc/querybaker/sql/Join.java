@@ -17,18 +17,36 @@ package io.github.bradenhc.querybaker.sql;
 
 import io.github.bradenhc.querybaker.cond.Condition;
 
+/**
+ * Represents an SQL JOIN statement. The resulting statement makes up part of various other SQL statements.The available
+ * joins are given by the {@link SQLJoinType} enum.
+ */
 public class Join {
 
 	private SQLJoinType mType;
 	private Table mJoinTable;
 	private Condition mCondition;
 
+	/**
+	 * Create a new JOIN object instance. The instance will be a join of the provided {@link SQLJoinType type} and will
+	 * join the provided {@link Table table} on the provided {@link Condition condition}.
+	 * 
+	 * @param type
+	 *        the type of join to create
+	 * @param joinTable
+	 *        the table to join on
+	 * @param condition
+	 *        the condition that dictates the join
+	 */
 	public Join(SQLJoinType type, Table joinTable, Condition condition) {
 		mType = type;
 		mJoinTable = joinTable;
 		mCondition = condition;
 	}
 
+	/**
+	 * Enumeration that represents the valid types of SQL joins that can be used in SQL query statements.
+	 */
 	enum SQLJoinType {
 		INNER, LEFT, RIGHT, FULL
 	}

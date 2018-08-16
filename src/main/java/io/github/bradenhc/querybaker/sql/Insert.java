@@ -19,46 +19,80 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.bradenhc.querybaker.api.IQueryBuilder;
-import io.github.bradenhc.querybaker.util.SQLFormatter;
+import io.github.bradenhc.querybaker.util.Formatter;
 
+/**
+ * Represents an INSERT INTO statement for SQL databases.
+ */
 public class Insert implements IQueryBuilder {
-	
+
 	private Table mTable;
 	private List<Column> mColumns = new ArrayList<>();
 	private List<Object> mValues = new ArrayList<>();
-	
-	public Insert(Table table) {
+
+	/**
+	 * Creates a new INSERT INTO statement using the provided {@link Table} object. This constructor is private. Use the
+	 * static {@link Insert#into(Table)} method instead.
+	 * 
+	 * @param table
+	 *        the Table object instance to use
+	 */
+	private Insert(Table table) {
 		mTable = table;
 	}
-	
-	public static Insert into(String table) {
-		return new Insert(new Table(table));
-	}
-	
+
+	/**
+	 * Creates a new INSERT INTO statement using the provided {@link Table} object.
+	 * 
+	 * @param table
+	 *        the Table object instance to use
+	 * @return a new Insert instance used to build and create a INSERT INTO query
+	 */
 	public static Insert into(Table table) {
 		return new Insert(table);
 	}
-	
-	public Insert values(Pair ...pairs) {
-		for(Pair p : pairs) {
+
+	/**
+	 * Specifies the values that should be inserted into the table. The values in this method are passed using
+	 * {@link Pair} objects that contain the column and the value that should be inserted into that column.
+	 * 
+	 * @param pairs
+	 *        any number of Pair objects passed as individual parameters to the function
+	 * @return the modified Insert instance
+	 */
+	public Insert values(Pair... pairs) {
+		for (Pair p : pairs) {
 			mColumns.add(p.column);
 			mValues.add(p.value);
 		}
 		return this;
 	}
-	
+
+	/**
+	 * Creates a new {@link Pair} object given a {@link Column} and an Object value. The resulting object can be used in
+	 * the {@link Insert#values(Pair...)} method.
+	 * 
+	 * @param c
+	 *        the column
+	 * @param v
+	 *        the value
+	 * @return a new Pair instance containing the column and value
+	 */
 	public static Pair pair(Column c, Object v) {
 		return new Pair(c, v);
 	}
 
+	/**
+	 * Generates the INSERT INTO statement. See {@link IQueryBuilder#build()} for more information.
+	 */
 	@Override
 	public String build() {
 		StringBuilder sb = new StringBuilder("INSERT INTO ");
 		sb.append(mTable.name()).append(" ");
 		sb.append("(");
 		boolean first = true;
-		for(Column c : mColumns) {
-			if(first) {
+		for (Column c : mColumns) {
+			if (first) {
 				sb.append(c.name());
 				first = false;
 			} else {
@@ -68,9 +102,9 @@ public class Insert implements IQueryBuilder {
 		sb.append(") ");
 		sb.append("VALUES (");
 		first = true;
-		for(Object v : mValues) {
-			String s = SQLFormatter.format(v);
-			if(first) {
+		for (Object v : mValues) {
+			String s = Formatter.format(v);
+			if (first) {
 				sb.append(s);
 				first = false;
 			} else {
@@ -80,5 +114,5 @@ public class Insert implements IQueryBuilder {
 		sb.append(")");
 		return sb.toString();
 	}
-	
+
 }

@@ -22,6 +22,9 @@ import io.github.bradenhc.querybaker.api.IQueryBuilder;
 import io.github.bradenhc.querybaker.cond.Condition;
 import io.github.bradenhc.querybaker.sql.Join.SQLJoinType;
 
+/**
+ * Represents a SELECT statement used to query table entry data in a SQL database.
+ */
 public class Select implements IQueryBuilder {
 
 	private Table mTable;
@@ -31,25 +34,47 @@ public class Select implements IQueryBuilder {
 	private List<Column> mOrder = new ArrayList<>();
 	private List<Join> mJoins = new ArrayList<>();
 
-	public Select(Table table) {
+	/**
+	 * Creates a new SELECT statement instance on the provided {@link Table}. This constructor is private. Use the
+	 * {@link Select#from(Table)} method instead.
+	 * 
+	 * @param table
+	 *        the table to select on
+	 */
+	private Select(Table table) {
 		mTable = table;
 	}
 
-	public static Select from(String table) {
-		return new Select(new Table(table));
-	}
-
+	/**
+	 * Creates a new SELECT statement instance on the provided {@link Table}.
+	 * 
+	 * @param table
+	 *        the table to select on
+	 */
 	public static Select from(Table table) {
 		return new Select(table);
 	}
 
 	// TODO add a select from a select
 
+	/**
+	 * Equivalent to a {@code SELECT *} statement in SQL queries. Tells the Select query builder to select on all
+	 * columns in the internal table.
+	 * 
+	 * @return the modified Select instance
+	 */
 	public Select all() {
 		mShouldSelectAll = true;
 		return this;
 	}
 
+	/**
+	 * Specifies which columns in the database table to select on.
+	 * 
+	 * @param columns
+	 *        a parameterized list of columns in the provided {@link Table} to select on
+	 * @return the modified Select instance
+	 */
 	public Select columns(Column... columns) {
 		for (Column c : columns) {
 			mSelectColumns.add(c);
@@ -57,31 +82,86 @@ public class Select implements IQueryBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds an INNER JOIN clause to the Select statement. This will join on the provided table under the provided
+	 * conditions.
+	 * 
+	 * @param t
+	 *        the table to join on
+	 * @param c
+	 *        the condition that dictates the join
+	 * @return the modified Select object
+	 */
 	public Select innerJoin(Table t, Condition c) {
 		mJoins.add(new Join(SQLJoinType.INNER, t, c));
 		return this;
 	}
 
+	/**
+	 * Adds a LEFT OUTER JOIN clause to the Select statement. This will join on the provided table under the provided
+	 * conditions.
+	 * 
+	 * @param t
+	 *        the table to join on
+	 * @param c
+	 *        the condition that dictates the join
+	 * @return the modified Select object
+	 */
 	public Select leftJoin(Table t, Condition c) {
 		mJoins.add(new Join(SQLJoinType.LEFT, t, c));
 		return this;
 	}
 
+	/**
+	 * Adds an RIGHT OUTER JOIN clause to the Select statement. This will join on the provided table under the provided
+	 * conditions.
+	 * 
+	 * @param t
+	 *        the table to join on
+	 * @param c
+	 *        the condition that dictates the join
+	 * @return the modified Select object
+	 */
 	public Select rightJoin(Table t, Condition c) {
 		mJoins.add(new Join(SQLJoinType.RIGHT, t, c));
 		return this;
 	}
 
+	/**
+	 * Adds an FULL OUTER JOIN clause to the Select statement. This will join on the provided table under the provided
+	 * conditions.
+	 * 
+	 * @param t
+	 *        the table to join on
+	 * @param c
+	 *        the condition that dictates the join
+	 * @return the modified Select object
+	 */
 	public Select fullJoin(Table t, Condition c) {
 		mJoins.add(new Join(SQLJoinType.FULL, t, c));
 		return this;
 	}
 
+	/**
+	 * Adds a WHERE clause to the SELECT statement based on the provided condition
+	 * 
+	 * @param c
+	 *        the condition to filter queried values
+	 * @return the modified Select object
+	 */
 	public Select where(Condition c) {
 		mCondition = c;
 		return this;
 	}
 
+	/**
+	 * Adds an ORDER BY clause to the SELECT statement. The order of the provided columns will be reflected in the the
+	 * ORDER BY clause.
+	 * 
+	 * @param columns
+	 *        a parameterized list of columns to order the query results by
+	 * @return the modified Select object
+	 */
 	public Select order(Column... columns) {
 		for (Column c : columns) {
 			mOrder.add(c);
@@ -89,6 +169,9 @@ public class Select implements IQueryBuilder {
 		return this;
 	}
 
+	/**
+	 * Generates the SELECT statement. See {@link IQueryBuilder#build()} for more information.
+	 */
 	@Override
 	public String build() {
 		StringBuilder sb = new StringBuilder("SELECT ");

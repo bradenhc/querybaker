@@ -21,7 +21,20 @@ import io.github.bradenhc.querybaker.cond.Condition;
 import io.github.bradenhc.querybaker.cond.Condition.Symbol;
 import io.github.bradenhc.querybaker.sql.Column;
 
-public class SQLFormatter {
+/**
+ * Defines how query strings should be formatted. Given an object, it will check to see if the object's string
+ * representation needs to be escaped or wrapped in quotes and will return the correct string representation of the
+ * object.
+ */
+public class Formatter {
+
+	/**
+	 * Determines the correct string representation of the provided object for a database query.
+	 * 
+	 * @param o
+	 *        the object to format
+	 * @return a string properly formatted for the database type being used
+	 */
 	public static String format(Object o) {
 		if (o instanceof Column) {
 			Column c = (Column) o;
