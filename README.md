@@ -6,7 +6,7 @@ Ultimately this builder will also include query validation based on a schema imp
 ## Maven
 ```xml
 <dependency>
-    <groupId>com.github.bradenhitchcock.querybaker</groupId>
+    <groupId>io.github.bradenhc</groupId>
     <artifactId>querybaker</artifactId>
     <version>1.0.0</version>
 </dependency>
